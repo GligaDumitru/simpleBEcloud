@@ -4,7 +4,7 @@ const bodyParser = require('body-parser')
 const multer = require('multer')
 const cors = require('cors');
 const uploadImage = require('./helpers/helpers')
-
+const PORT = process.env.PORT || 9001;
 const app = express()
 
 const multerMid = multer({
@@ -49,6 +49,9 @@ app.post('/uploads', async (req, res, next) => {
   }
 })
 
+app.get('/',(req,res) => {
+  res.status(200).json({msg:'ok'})
+})
 app.use((err, req, res, next) => {
     console.log(err)
   res.status(500).json({
@@ -58,6 +61,6 @@ app.use((err, req, res, next) => {
   next()
 })
 
-app.listen(9001, () => {
+app.listen(PORT, () => {
   console.log('app now listening for requests!!!')
 })
